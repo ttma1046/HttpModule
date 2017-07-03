@@ -10,16 +10,14 @@ export class HttpService {
   constructor(private http: Http) {}
 
   get(url: string): Observable<any> {
-    return this.http.get(url, options)
+    return this.http.get(url)
                     .map(this.extractData)
-                  //.do(data => console.log('server data:', data))  // debug
                     .catch(this.handleError);
   }
 
   post(url: string, data: any): Observable<any> {
-    return this.http.post(url, data, options)
+    return this.http.post(url, data)
                     .map(this.extractResult)
-                  //.do(data => console.log('server data:', data))  // debug
                     .catch(this.handleError);
   }
 
@@ -43,7 +41,6 @@ export class HttpService {
     // We'd also dig deeper into the error to get a better message
     let errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-    console.error(errMsg); // log to console instead
     return Observable.throw(errMsg);
   }
 }
